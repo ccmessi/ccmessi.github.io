@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="icon" href="/img/avatar.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -46,7 +46,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":110,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"c09ebf4b1c4e85a78c41088b03767102","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -58,7 +58,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>❤one_piece=烟花姑娘❤</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -111,23 +111,39 @@
           
           
           
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                Others
               </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    标签
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/">
+                    <i class="iconfont icon-user-fill"></i>
+                    关于
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    <i class="iconfont icon-link-fill"></i>
+                    友链
+                  </a>
+                
+              </div>
             </li>
           
         
@@ -150,7 +166,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -180,60 +196,6 @@
                 
 
 <div class="row links">
-  
-    
-    <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://hexo.fluid-dev.com/" class="card-body hover-with-bg" target="_blank" rel="noopener">
-        <div class="card-content">
-          
-            <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="Fluid Blog"
-                   onerror="this.onerror=null; this.src=this.srcset='/img/avatar.png'"/>
-            </div>
-          
-          <div class="link-text">
-            <div class="link-title">Fluid Blog</div>
-            <div class="link-intro">主题博客</div>
-          </div>
-        </div>
-      </a>
-    </div>
-  
-    
-    <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://hexo.fluid-dev.com/docs/" class="card-body hover-with-bg" target="_blank" rel="noopener">
-        <div class="card-content">
-          
-            <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="Fluid Docs"
-                   onerror="this.onerror=null; this.src=this.srcset='/img/avatar.png'"/>
-            </div>
-          
-          <div class="link-text">
-            <div class="link-title">Fluid Docs</div>
-            <div class="link-intro">主题使用指南</div>
-          </div>
-        </div>
-      </a>
-    </div>
-  
-    
-    <div class="card col-lg-4 col-md-6 col-sm-12">
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" class="card-body hover-with-bg" target="_blank" rel="noopener">
-        <div class="card-content">
-          
-            <div class="link-avatar my-auto">
-              <img src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="Fluid Repo"
-                   onerror="this.onerror=null; this.src=this.srcset='/img/avatar.png'"/>
-            </div>
-          
-          <div class="link-text">
-            <div class="link-title">Fluid Repo</div>
-            <div class="link-intro">主题 GitHub 仓库</div>
-          </div>
-        </div>
-      </a>
-    </div>
   
 </div>
 
@@ -286,8 +248,42 @@
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
 
   
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        渝ICP备19011883号-1
+      </a>
+    </span>
+    
+  </div>
+
 
   
 </footer>
@@ -331,6 +327,8 @@
 
 
 
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 
@@ -354,6 +352,30 @@
 
 
 
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c09ebf4b1c4e85a78c41088b03767102";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
