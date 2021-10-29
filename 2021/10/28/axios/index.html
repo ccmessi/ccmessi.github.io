@@ -16,20 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="人生如戏,亦或是戏如人生。">
+  <meta name="description" content="封装axios1.请求地址以及超时时间12345const service &#x3D; axios.create(&amp;#123;  baseURL: &amp;#x27;http:&#x2F;&#x2F;tomcat2-69.gis-data.cn:7080&amp;#x27;,  &#x2F;&#x2F; 超时时间  timeout: 3000&amp;#125;);  2.设置请求拦截器123456789service.interceptors.request.us">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cloud">
-<meta property="og:url" content="http://example.com/2021/10/28/cloud/index.html">
+<meta property="og:title" content="axios">
+<meta property="og:url" content="http://example.com/2021/10/28/axios/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="人生如戏,亦或是戏如人生。">
+<meta property="og:description" content="封装axios1.请求地址以及超时时间12345const service &#x3D; axios.create(&amp;#123;  baseURL: &amp;#x27;http:&#x2F;&#x2F;tomcat2-69.gis-data.cn:7080&amp;#x27;,  &#x2F;&#x2F; 超时时间  timeout: 3000&amp;#125;);  2.设置请求拦截器123456789service.interceptors.request.us">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-28T14:18:07.000Z">
-<meta property="article:modified_time" content="2021-10-28T14:58:00.449Z">
+<meta property="article:published_time" content="2021-10-28T14:40:55.000Z">
+<meta property="article:modified_time" content="2021-10-29T08:31:46.437Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="-life">
+<meta property="article:tag" content="-项目">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>cloud - Hexo</title>
+  <title>axios - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="cloud">
+            <span class="h2" id="subtitle" title="axios">
               
             </span>
 
@@ -201,7 +201,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-28 22:18" pubdate>
+      <time datetime="2021-10-28 22:40" pubdate>
         2021年10月28日 晚上
       </time>
     </span>
@@ -212,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13 字
+      1.8k 字
     </span>
   
 
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      6 分钟
     </span>
   
 
@@ -250,16 +250,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">cloud</h1>
+            <h1 style="display: none">axios</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月28日 晚上
+                  本文最后更新于：2021年10月29日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <p>人生如戏,亦或是戏如人生。</p>
+              <h4 id="封装axios"><a href="#封装axios" class="headerlink" title="封装axios"></a>封装axios</h4><h5 id="1-请求地址以及超时时间"><a href="#1-请求地址以及超时时间" class="headerlink" title="1.请求地址以及超时时间"></a>1.请求地址以及超时时间</h5><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">const</span> service = axios.create(&#123;<br>  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">&#x27;http://tomcat2-69.gis-data.cn:7080&#x27;</span>,<br>  <span class="hljs-comment">// 超时时间</span><br>  <span class="hljs-attr">timeout</span>: <span class="hljs-number">3000</span><br>&#125;);<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="2-设置请求拦截器"><a href="#2-设置请求拦截器" class="headerlink" title="2.设置请求拦截器"></a>2.设置请求拦截器</h5><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">service.interceptors.request.use(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>  config.data = <span class="hljs-built_in">JSON</span>.stringify(config.data); <span class="hljs-comment">//数据转化,也可以使用qs转换</span><br>  config.headers = &#123;<br>    <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json;charset=UTF-8&#x27;</span> <span class="hljs-comment">//配置请求头</span><br>  &#125;;<br>  <span class="hljs-keyword">return</span> config<br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">Promise</span>.reject(error)<br>&#125;);<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="3-设置响应拦截器"><a href="#3-设置响应拦截器" class="headerlink" title="3.设置响应拦截器"></a>3.设置响应拦截器</h5><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">service.interceptors.response.use(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 接收到响应数据并成功后的一些共有的处理，关闭loading等</span><br><br>  <span class="hljs-keyword">return</span> response<br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">/***** 接收到异常响应的处理开始 *****/</span><br>  <span class="hljs-keyword">if</span> (error &amp;&amp; error.response) &#123;<br>    <span class="hljs-comment">// 根据响应码具体处理</span><br>    <span class="hljs-keyword">switch</span> (error.response.status) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">400</span>:<br>        error.message = <span class="hljs-string">&#x27;错误请求&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">401</span>:<br>        error.message = <span class="hljs-string">&#x27;未授权，请重新登录&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">403</span>:<br>        error.message = <span class="hljs-string">&#x27;拒绝访问&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">404</span>:<br>        error.message = <span class="hljs-string">&#x27;请求错误,未找到该资源&#x27;</span>;<br>        <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">&quot;/NotFound&quot;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">405</span>:<br>        error.message = <span class="hljs-string">&#x27;请求方法未允许&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">408</span>:<br>        error.message = <span class="hljs-string">&#x27;请求超时&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">500</span>:<br>        error.message = <span class="hljs-string">&#x27;服务器端出错&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">501</span>:<br>        error.message = <span class="hljs-string">&#x27;网络未实现&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">502</span>:<br>        error.message = <span class="hljs-string">&#x27;网络错误&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">503</span>:<br>        error.message = <span class="hljs-string">&#x27;服务不可用&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">504</span>:<br>        error.message = <span class="hljs-string">&#x27;网络超时&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">505</span>:<br>        error.message = <span class="hljs-string">&#x27;http版本不支持该请求&#x27;</span>;<br>        <span class="hljs-keyword">break</span>;<br>      <span class="hljs-keyword">default</span>:<br>        error.message = <span class="hljs-string">`连接错误<span class="hljs-subst">$&#123;error.response.status&#125;</span>`</span><br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 超时处理</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">JSON</span>.stringify(error).includes(<span class="hljs-string">&#x27;timeout&#x27;</span>)) &#123;<br>      Message.error(<span class="hljs-string">&#x27;服务器响应超时，请刷新当前页&#x27;</span>)<br>    &#125;<br>    error.message = <span class="hljs-string">&#x27;连接服务器失败&#x27;</span><br>  &#125;<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="4-返回错误信息，处理结束，最后导出"><a href="#4-返回错误信息，处理结束，最后导出" class="headerlink" title="4.返回错误信息，处理结束，最后导出"></a>4.返回错误信息，处理结束，最后导出</h5><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"> Message.error(error.message);<br>  <span class="hljs-comment">/***** 处理结束 *****/</span><br>  <span class="hljs-comment">//如果不需要错误处理，以上的处理过程都可省略</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(error.response)<br>&#125;);<br><span class="hljs-comment">//导出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> service<br></code></pre></div></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -269,7 +276,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">-随笔</a>
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF/">-技术</a>
                     
                   </div>
                 
@@ -277,7 +284,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/life/">-life</a>
+                      <a class="hover-with-bg" href="/tags/%E9%A1%B9%E7%9B%AE/">-项目</a>
                     
                   </div>
                 
@@ -294,18 +301,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/28/axios/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">axios</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/28/promise/">
-                        <span class="hidden-mobile">promise处理异步</span>
+                      <a href="/2021/10/28/cloud/">
+                        <span class="hidden-mobile">cloud</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
