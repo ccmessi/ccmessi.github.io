@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>节流与防抖</title>
+    <link href="/2021/10/29/%E8%8A%82%E6%B5%81%E4%B8%8E%E9%98%B2%E6%8A%96/"/>
+    <url>/2021/10/29/%E8%8A%82%E6%B5%81%E4%B8%8E%E9%98%B2%E6%8A%96/</url>
+    
+    <content type="html"><![CDATA[<h3 id="节流函数"><a href="#节流函数" class="headerlink" title="节流函数"></a>节流函数</h3><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//throttle本质也是一个定时器，在第一次触发事件的时候，开启定时器，在定时器执行完毕之前，系统会锁住，新触发的事件都不会执行；定时器执行完毕之后，销毁定时器，系统开放，接受新的事件。</span><br><span class="hljs-comment">//基本函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Throttle</span>(<span class="hljs-params">func, delay</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> pre = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(); <span class="hljs-comment">//设置初始时间</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<span class="hljs-comment">//设置当前时间</span><br>    <span class="hljs-keyword">let</span> context = <span class="hljs-built_in">this</span>;<br>    <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;<br>    <span class="hljs-keyword">if</span> (now - pre &gt; delay) &#123;<br>      func.apply(context, args);<br>      pre = now<br>    &#125;<br>  &#125;<br></code></pre></div></td></tr></table></figure><p>​        两个参数，第一个参数就是执行的函数，第二个参数是延迟的时间，用节流的方式，可以保证在一段时间内，只有第一次执行是生效的直到超过了设定的时间段，才有机会执行下一次，大大的降低了原有函数的执行频率。</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//进阶节流函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">func, wait, options</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> timeout, context, args, result;<br>  <span class="hljs-keyword">var</span> previous = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> (!options) options = &#123;&#125;;<br> <br>  <span class="hljs-keyword">var</span> later = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    previous = options.leading === <span class="hljs-literal">false</span>? <span class="hljs-number">0</span>: <span class="hljs-built_in">Date</span>.now(); <br>    timeout = <span class="hljs-literal">null</span>;<br>    result = func.apply(context, args);<br>  &#125;;<br> <br>  <span class="hljs-keyword">var</span> throttled = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> now = <span class="hljs-built_in">Date</span>.now();<br>    <span class="hljs-keyword">if</span> (!previous &amp;&amp; options.leading === <span class="hljs-literal">false</span>) previous = now;<br>    <span class="hljs-keyword">var</span> remaining = wait - (now - previous);<br>  context = <span class="hljs-built_in">this</span>;<br>    args = <span class="hljs-built_in">arguments</span>;<br>    <span class="hljs-keyword">if</span> (remaining &lt;= <span class="hljs-number">0</span> || remaining &gt; wait) &#123;<br>      <span class="hljs-keyword">if</span> (timeout) &#123;<br>        <span class="hljs-built_in">clearTimeout</span>(timeout);<br>        timeout = <span class="hljs-literal">null</span>;<br>      &#125;<br>      previous = now;<br>      result = func.apply(context, args);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!timeout &amp;&amp; options.trailing !== <span class="hljs-literal">false</span>) &#123;<br>      timeout = <span class="hljs-built_in">setTimeout</span>(later, remaining);<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br>  throttled.cancel = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">clearTimeout</span>(timeout);<br>    previous = <span class="hljs-number">0</span>;<br>    timeout = context = args = <span class="hljs-literal">null</span>;<br>  &#125;;<br>  <span class="hljs-keyword">return</span> throttled;<br>&#125;<br></code></pre></div></td></tr></table></figure><h3 id="防抖函数"><a href="#防抖函数" class="headerlink" title="防抖函数"></a>防抖函数</h3><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//debounce本质上，是一个定时器setTimeout，在wait毫秒时间之后，执行传入的函数：</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">func, wait, immediate</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> timeout, result;<br> <br>    <span class="hljs-keyword">var</span> debounced = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> context = <span class="hljs-built_in">this</span>;<br>  <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>;<br>  <span class="hljs-keyword">if</span> (timeout) <span class="hljs-built_in">clearTimeout</span>(timeout);<br> <br>        <span class="hljs-keyword">var</span> later = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>           timeout = <span class="hljs-literal">null</span>;<br>           <span class="hljs-keyword">if</span> (!immediate) result = func.apply(context, args);<br>        &#125;;<br> <br> <br>        <span class="hljs-keyword">var</span> callNow = immediate &amp;&amp; !timeout;<br>        timeout = <span class="hljs-built_in">setTimeout</span>(later, wait);<br>        <span class="hljs-keyword">if</span> (callNow) result = func.apply(<span class="hljs-built_in">this</span>, args);<br> <br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>    debounced.cancel = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">clearTimeout</span>(timeout);<br>        timeout = <span class="hljs-literal">null</span>;<br>    &#125;;<br>    <span class="hljs-keyword">return</span> debounced;<br>&#125;<br></code></pre></div></td></tr></table></figure><p>​        返回 <strong>function</strong> 函数的防反跳版本, 将延迟函数的执行(真正的执行)在函数最后一次调用时刻的 <strong>wait</strong> 毫秒之后. 对于必须在一些输入（多是一些用户操作）停止到达<em>之后</em>执行的行为有帮助。 例如: 渲染一个Markdown格式的评论预览, 当窗口停止改变大小之后重新计算布局, 等等.</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-throttle&amp;debounce</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>axios</title>
     <link href="/2021/10/28/axios/"/>
     <url>/2021/10/28/axios/</url>
@@ -20,7 +45,7 @@
     
     <tags>
       
-      <tag>-项目</tag>
+      <tag>-axios</tag>
       
     </tags>
     
@@ -54,7 +79,7 @@
   
   
   <entry>
-    <title>promise处理异步</title>
+    <title>promise</title>
     <link href="/2021/10/28/promise/"/>
     <url>/2021/10/28/promise/</url>
     
@@ -70,7 +95,7 @@
     
     <tags>
       
-      <tag>-项目</tag>
+      <tag>-promise</tag>
       
     </tags>
     
