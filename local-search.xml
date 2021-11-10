@@ -4,11 +4,61 @@
   
   
   <entry>
+    <title>this指针详解</title>
+    <link href="/2021/11/10/this%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3/"/>
+    <url>/2021/11/10/this%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-this</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>uniapp环境部署</title>
+    <link href="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/"/>
+    <url>/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/</url>
+    
+    <content type="html"><![CDATA[<h4 id="创建一个uniapp项目"><a href="#创建一个uniapp项目" class="headerlink" title="创建一个uniapp项目"></a>创建一个uniapp项目</h4><ol><li><p>下载HBuilder以及微信开发者工具。</p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101214631961.png" alt="image-20211101214631961"></p></li><li><p>打开HBuilder点击文件新建1.项目</p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101185031980.png" alt="image-20211101185031980"></p></li><li><p>点击创建</p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101185118860.png" alt="image-20211101185118860"></p></li><li><p>创建完之后就自动生成uniapp的文件目录树</p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101185258926.png" alt="image-20211101185258926"></p></li><li><p>运行</p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101185340190.png" alt="image-20211101185340190"></p><p><img src="/2021/11/01/uniapp%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/Users\lion-messi\AppData\Roaming\Typora\typora-user-images\image-20211101185546511.png" alt="image-20211101185546511"></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-uniapp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>一碗芋圆的碎碎念</title>
     <link href="/2021/10/29/%E4%B8%80%E7%A2%97%E8%8A%8B%E5%9C%86%E7%9A%84%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     <url>/2021/10/29/%E4%B8%80%E7%A2%97%E8%8A%8B%E5%9C%86%E7%9A%84%E7%A2%8E%E7%A2%8E%E5%BF%B5/</url>
     
-    <content type="html"><![CDATA[<h5 id="爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。"><a href="#爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。" class="headerlink" title="爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。"></a>爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。</h5><p><img src="D:\blog\public\img\mmexport1635505561068.jpg" alt="mmexport1635505561068"></p>]]></content>
+    <content type="html"><![CDATA[<h5 id="爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。"><a href="#爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。" class="headerlink" title="爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。"></a>爱情就是：白芋、紫芋、红豆、芋圆、牛奶————鲜鲜甜甜，每每回味，总有余香。</h5><p><img src="/2021/10/29/%E4%B8%80%E7%A2%97%E8%8A%8B%E5%9C%86%E7%9A%84%E7%A2%8E%E7%A2%8E%E5%BF%B5/head.jpg" alt="相爱恨难"></p>]]></content>
     
     
     <categories>
