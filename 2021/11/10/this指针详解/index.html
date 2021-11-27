@@ -16,13 +16,15 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta property="og:type" content="article">
+  <meta name="description" content="thist指向规则This指向分为四种绑定规则：默认绑定、隐式绑定、显式绑定以及关键字new绑定。在ES6之后，又有了箭头函数中的this规则。我们用实例看看，this在这些情况下的值是怎样的：  默认绑定、隐式绑定和显式绑定。  1234567891011function foo() &amp;#123;     console.log(this.bar); &amp;#125; var bar &#x3D; &amp;quot">
+<meta property="og:type" content="article">
 <meta property="og:title" content="this指针详解">
 <meta property="og:url" content="http://ccmessi.github.io/2021/11/10/this%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="はなび的博客">
+<meta property="og:description" content="thist指向规则This指向分为四种绑定规则：默认绑定、隐式绑定、显式绑定以及关键字new绑定。在ES6之后，又有了箭头函数中的this规则。我们用实例看看，this在这些情况下的值是怎样的：  默认绑定、隐式绑定和显式绑定。  1234567891011function foo() &amp;#123;     console.log(this.bar); &amp;#125; var bar &#x3D; &amp;quot">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-10T03:46:35.000Z">
-<meta property="article:modified_time" content="2021-11-10T04:12:29.130Z">
+<meta property="article:modified_time" content="2021-11-26T05:34:35.515Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="-this">
 <meta name="twitter:card" content="summary_large_image">
@@ -210,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      1k 字
     </span>
   
 
@@ -219,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      3 分钟
     </span>
   
 
@@ -252,12 +254,30 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月10日 中午
+                  本文最后更新于：2021年11月26日 下午
                 
               </p>
             
             <div class="markdown-body">
-              
+              <h4 id="thist指向规则"><a href="#thist指向规则" class="headerlink" title="thist指向规则"></a>thist指向规则</h4><p>This指向分为四种绑定规则：默认绑定、隐式绑定、显式绑定以及关键字new绑定。在ES6之后，又有了箭头函数中的this规则。我们用实例看看，this在这些情况下的值是怎样的：</p>
+<ol>
+<li><h6 id="默认绑定、隐式绑定和显式绑定。"><a href="#默认绑定、隐式绑定和显式绑定。" class="headerlink" title="默认绑定、隐式绑定和显式绑定。"></a>默认绑定、隐式绑定和显式绑定。</h6></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123; <br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.bar); <br>&#125; <br><span class="hljs-keyword">var</span> bar = <span class="hljs-string">&quot;bar1&quot;</span>; <br><span class="hljs-keyword">var</span> o2 = &#123;<span class="hljs-attr">bar</span>: <span class="hljs-string">&quot;bar2&quot;</span>, <span class="hljs-attr">foo</span>: foo&#125;; <br><span class="hljs-keyword">var</span> o3 = &#123;<span class="hljs-attr">bar</span>: <span class="hljs-string">&quot;bar3&quot;</span>, <span class="hljs-attr">foo</span>: foo&#125;; <br><br>foo();            <br>o2.foo();          <br>foo.call(o3); <br><span class="hljs-comment">// 输出：”bar1”, ”bar2”, ”bar3”</span><br></code></pre></div></td></tr></table></figure>
+
+<ol start="2">
+<li><h6 id="SetTimeout等许多之后被触发的事件当中的this指向"><a href="#SetTimeout等许多之后被触发的事件当中的this指向" class="headerlink" title="SetTimeout等许多之后被触发的事件当中的this指向"></a>SetTimeout等许多之后被触发的事件当中的this指向</h6></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Nicolas&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&#x27;Smiley&#x27;</span>;<br>    <span class="hljs-built_in">this</span>.sayName=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>); <br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <br>    &#125;;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-built_in">this</span>.sayName, <span class="hljs-number">0</span>);     <span class="hljs-comment">// 第二次输出</span><br>&#125;<br><br><span class="hljs-keyword">var</span> person = <span class="hljs-keyword">new</span> Person();<br>person.sayName();		<span class="hljs-comment">// 第一次输出</span><br><span class="hljs-comment">// 第一次输出的是Person, Smiley。第二次输出的结果是window，Nicolas。</span><br></code></pre></div></td></tr></table></figure>
+
+<ol start="3">
+<li><h6 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h6></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&quot;Smiley&quot;</span>;<br>  <span class="hljs-built_in">this</span>.sayName = <span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">let</span> person = <span class="hljs-keyword">new</span> Person();<br>person.sayName.call(&#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Nicolas&quot;</span>&#125;);<br><span class="hljs-comment">// 结果则为Person和Smiley。</span><br></code></pre></div></td></tr></table></figure>
+
+<p>这是因为箭头函数并没有自己的this，被定义在哪里，this就指向谁，且优先级比显式调用高。</p>
+<p>以上是本人总结的this指向问题，若有不对，请大家多多指教！</p>
+
             </div>
             <hr>
             <div>
@@ -290,6 +310,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/26/js%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">js数组常用方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
