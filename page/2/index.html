@@ -204,8 +204,182 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/29/async%E9%97%AE%E9%A2%98/" target="_blank">
+          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="async问题">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/29/async%E9%97%AE%E9%A2%98/" target="_blank">
+          async问题
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/29/async%E9%97%AE%E9%A2%98/" target="_blank">
+          
+          
+            
+          
+          async与await
+async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。
+
+
+补充：Promise.resolve(x) 可以看作是 new Promise(resolve =&gt; resolve(x)) 的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-29 18:06" pubdate>
+              2021-10-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">-技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/async/">-async</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/29/%E8%8A%82%E6%B5%81%E4%B8%8E%E9%98%B2%E6%8A%96/" target="_blank">
+          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="节流与防抖">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/29/%E8%8A%82%E6%B5%81%E4%B8%8E%E9%98%B2%E6%8A%96/" target="_blank">
+          节流与防抖
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/29/%E8%8A%82%E6%B5%81%E4%B8%8E%E9%98%B2%E6%8A%96/" target="_blank">
+          
+          
+            
+          
+          节流函数12345678910111213//throttle本质也是一个定时器，在第一次触发事件的时候，开启定时器，在定时器执行完毕之前，系统会锁住，新触发的事件都不会执行；定时器执行完毕之后，销毁定时器，系统开放，接受新的事件。//基本函数function Throttle(func, delay) &#123;  let pre = new Date(); //设置初始时间  return 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-29 16:30" pubdate>
+              2021-10-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">-技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/throttle-debounce/">-throttle&debounce</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/28/axios/" target="_blank">
+          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="axios">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/28/axios/" target="_blank">
+          axios
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/28/axios/" target="_blank">
+          
+          
+            
+          
+          封装axios1.请求地址以及超时时间12345const service = axios.create(&#123;  baseURL: &#x27;http://tomcat2-69.gis-data.cn:7080&#x27;,  // 超时时间  timeout: 3000&#125;);
+
+2.设置请求拦截器123456789service.interceptors.request.us
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-28 22:40" pubdate>
+              2021-10-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">-技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/axios/">-axios</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/10/28/cloud/" target="_blank">
-          <img src="/img/cloud.jpeg" srcset="/img/loading.gif" lazyload alt="cloud">
+          <img src="/img/cloud.jpeg" srcset="/img/loading.gif" lazyload alt="人生">
         </a>
       </div>
     
@@ -213,7 +387,7 @@
       <h1 class="index-header">
         
         <a href="/2021/10/28/cloud/" target="_blank">
-          cloud
+          人生
         </a>
       </h1>
 
