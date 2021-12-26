@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>简单实现vue得双向绑定</title>
+    <link href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/"/>
+    <url>/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/</url>
+    
+    <content type="html"><![CDATA[<p><strong>直接上代码</strong></p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> Book = &#123;&#125;;<br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-built_in">Object</span>.defineProperty(Book,<span class="hljs-string">&#x27;name&#x27;</span>,&#123;<br>    <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;<br>        name = value;<br>        <span class="hljs-built_in">console</span>.log(name)<br>    &#125;,<br>    <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;《&#x27;</span> + name + <span class="hljs-string">&#x27;》&#x27;</span><br>    &#125;<br>&#125;)<br>Book.name = <span class="hljs-string">&#x27;肖生客的救赎&#x27;</span>;<br><span class="hljs-built_in">console</span>.log(Book.name);<br><span class="hljs-built_in">console</span>.log(Book)<br></code></pre></div></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-vue</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>常用算法</title>
     <link href="/2021/12/26/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95/"/>
     <url>/2021/12/26/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95/</url>
