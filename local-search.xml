@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>js判断数组的方法</title>
+    <link href="/2021/12/31/js%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <url>/2021/12/31/js%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h5 id="1-arr-intanseof-Array"><a href="#1-arr-intanseof-Array" class="headerlink" title="1.arr intanseof Array"></a>1.arr intanseof Array</h5><h5 id="2-Array-isArray-arr"><a href="#2-Array-isArray-arr" class="headerlink" title="2.Array.isArray(arr)"></a>2.Array.isArray(arr)</h5><h5 id="3-arr-constructor-Array"><a href="#3-arr-constructor-Array" class="headerlink" title="3.arr.constructor === Array"></a>3.arr.constructor === Array</h5><h5 id="4-Object-prototype-toString-call-arr-‘-object-Array-’"><a href="#4-Object-prototype-toString-call-arr-‘-object-Array-’" class="headerlink" title="4.Object.prototype.toString.call(arr) === ‘[object Array]’"></a>4.Object.prototype.toString.call(arr) === ‘[object Array]’</h5>]]></content>
+    
+    
+    <categories>
+      
+      <category>-js</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-js数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>浏览器的事件循环</title>
     <link href="/2021/12/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"/>
     <url>/2021/12/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
