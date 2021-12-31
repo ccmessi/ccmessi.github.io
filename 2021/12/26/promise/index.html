@@ -16,20 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：  Observe 对象 Dep 对象 Watch 对象 Obs">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&#x2F;&#x2F;异步加载this.promise &#x3D; Cesium.GeoJsonDataSource.load(  &amp;#x27; http:&#x2F;&#x2F;nginx-100.gis-data.cn:7080&#x2F;l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue中computed的原理">
-<meta property="og:url" content="http://ccmessi.github.io/2021/12/26/vue%E4%B8%ADcomputed%E7%9A%84%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="promise">
+<meta property="og:url" content="http://ccmessi.github.io/2021/12/26/promise/index.html">
 <meta property="og:site_name" content="はなび的博客">
-<meta property="og:description" content="要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：  Observe 对象 Dep 对象 Watch 对象 Obs">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&#x2F;&#x2F;异步加载this.promise &#x3D; Cesium.GeoJsonDataSource.load(  &amp;#x27; http:&#x2F;&#x2F;nginx-100.gis-data.cn:7080&#x2F;l">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-26T02:31:43.000Z">
-<meta property="article:modified_time" content="2021-12-26T02:34:02.609Z">
+<meta property="article:modified_time" content="2021-12-31T11:53:49.217Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="-vue">
+<meta property="article:tag" content="-js">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>vue中computed的原理 - はなび的博客</title>
+  <title>promise - はなび的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vue中computed的原理">
+            <span class="h2" id="subtitle" title="promise">
               
             </span>
 
@@ -250,31 +250,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue中computed的原理</h1>
+            <h1 style="display: none">promise</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月26日 上午
+                  本文最后更新于：2021年12月31日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <p>要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：</p>
-<ol>
-<li>Observe 对象</li>
-<li>Dep 对象</li>
-<li>Watch 对象 Observe 对象是在 data 执行响应式时候调用，因为 computed 属性基于响应式属性，所以其不需要创建 Observe 对象。 Dep 对象主要功能是做依赖收集，有个属性维护多个 Watch 对象，当更新时候循环调用每个 Watch 执行更新。 Watch 对象主要是用于更新，而且是收集的重点对象。</li>
-</ol>
-<p>这里谈到 computed 计算属性，首先要知道，其有两种定义方式，一种是方法，另一种是 get，set 属性。而且，其内部监听的对象必须是已经定义响应式的属性，比如 data 的属性 vuex 的属性。</p>
-<p>vue 在创建 computed 属性时候，会循环所有计算属性，每一个计算属性会创建一个 watch，并且在通过 defineProperty 定义监听，在 get 中，计算属性工作是做依赖收集，在 set 中，计算属性重要工作是重新执行计算方法，这里需要多补充一句，因为 computed 是懒执行，也就是说第一次初始化之后，变不会执行计算，下一次变更执行重新计算是在 set 中。</p>
-<p>另一个补充点是依赖收集的时机，computed 收集时机和 data 一样，是在组件挂载前，但是其收集对象是自己属性对应的 watch，而 data 本身所有数据对应一个 watch。</p>
-<p>以下附计算属性源码验证说法：</p>
-<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initComputed</span>(<span class="hljs-params">vm: Component, computed: <span class="hljs-built_in">Object</span></span>) </span>&#123;<br>  <span class="hljs-comment">// $flow-disable-line</span><br>  <span class="hljs-keyword">const</span> watchers = (vm._computedWatchers = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>));<br>  <span class="hljs-comment">// computed properties are just getters during SSR</span><br>  <span class="hljs-keyword">const</span> isSSR = isServerRendering();<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> computed) &#123;<br>    <span class="hljs-keyword">const</span> userDef = computed[key];<br>    <span class="hljs-keyword">const</span> getter = <span class="hljs-keyword">typeof</span> userDef === <span class="hljs-string">&quot;function&quot;</span> ? userDef : userDef.get;<br>    <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">&quot;production&quot;</span> &amp;&amp; getter == <span class="hljs-literal">null</span>) &#123;<br>      warn(<span class="hljs-string">`Getter is missing for computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot;.`</span>, vm);<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (!isSSR) &#123;<br>      <span class="hljs-comment">// create internal watcher for the computed property.</span><br>      watchers[key] = <span class="hljs-keyword">new</span> Watcher(<br>        vm,<br>        getter || noop,<br>        noop,<br>        computedWatcherOptions<br>      );<br>    &#125;<br><br>    <span class="hljs-comment">// component-defined computed properties are already defined on the</span><br>    <span class="hljs-comment">// component prototype. We only need to define computed properties defined</span><br>    <span class="hljs-comment">// at instantiation here.</span><br>    <span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> vm)) &#123;<br>      defineComputed(vm, key, userDef);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">&quot;production&quot;</span>) &#123;<br>      <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> vm.$data) &#123;<br>        warn(<span class="hljs-string">`The computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already defined in data.`</span>, vm);<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (vm.$options.props &amp;&amp; key <span class="hljs-keyword">in</span> vm.$options.props) &#123;<br>        warn(<br>          <span class="hljs-string">`The computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already defined as a prop.`</span>,<br>          vm<br>        );<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+              <figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//异步加载</span><br><span class="hljs-built_in">this</span>.promise = Cesium.GeoJsonDataSource.load(<br>  <span class="hljs-string">&#x27; http://nginx-100.gis-data.cn:7080/learning/3/cq-boundary.geojson&#x27;</span>, &#123;<br>    <span class="hljs-attr">stroke</span>: Cesium.Color.BLUE,<br>    <span class="hljs-attr">fill</span>: Cesium.Color.RED,<br>    <span class="hljs-attr">strokeWidth</span>: <span class="hljs-number">8</span>,<br>  &#125;);<br><span class="hljs-built_in">this</span>.promise.then(<span class="hljs-function">(<span class="hljs-params">dataSource</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">this</span>.viewer.dataSources.add(dataSource);<br>  <span class="hljs-keyword">let</span> entities = dataSource.entities.values;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> entity <span class="hljs-keyword">of</span> entities) &#123;<br>    <span class="hljs-keyword">let</span> polyPositions = entity.polygon.hierarchy.getValue(Cesium.JulianDate.now()).positions;<br>    <span class="hljs-comment">// 方式一：</span><br>    <span class="hljs-comment">// let polyCenter = Cesium.BoundingSphere.fromPoints(polyPositions).center;</span><br>    <span class="hljs-comment">// polyCenter = Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(polyCenter);</span><br>    <span class="hljs-comment">// 方式二：</span><br>    <span class="hljs-keyword">let</span> center = [];<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt;= polyPositions.length - <span class="hljs-number">1</span>; j++) &#123;<br>      a += polyPositions[j].x;<br>      b += polyPositions[j].y;<br>      c += polyPositions[j].z<br>    &#125;<br>    center = [a / polyPositions.length, b / polyPositions.length, c / polyPositions.length + <span class="hljs-number">2000</span>];<br>    <span class="hljs-keyword">let</span> labelpostion = Cesium.Cartesian3.fromArray(center);<br>    <span class="hljs-comment">//方式三：暂未实现，后面会继续研究</span><br>    <span class="hljs-comment">// let cartographics = Cesium.Ellipsoid.WGS84.cartesianArrayToCartographicArray(polyPositions);</span><br>    <span class="hljs-comment">// let points = [];</span><br>    <span class="hljs-comment">// let center = [];</span><br>    <span class="hljs-comment">// let a = 0;</span><br>    <span class="hljs-comment">// for (let i = 0; i &lt;= cartographics.length - 1; i++) &#123;</span><br>    <span class="hljs-comment">//   let lat = Cesium.Math.toDegrees(cartographics[i].latitude);</span><br>    <span class="hljs-comment">//   let lng = Cesium.Math.toDegrees(cartographics[i].longitude);</span><br>    <span class="hljs-comment">//   a = cartographics[i].height;</span><br>    <span class="hljs-comment">//   points[i] = [lng, lat];</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// let polygon = Turf.polygon([points]);</span><br>    <span class="hljs-comment">// let centroid = Turf.centroid(polygon);</span><br>    <span class="hljs-comment">// center = [centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]];</span><br>    <span class="hljs-comment">// let labelpostion = Cesium.Cartesian3.fromDegreesArray(center);</span><br>    <span class="hljs-built_in">this</span>.viewer.entities.add(&#123;<br>      <span class="hljs-attr">position</span>: labelpostion,<br>      <span class="hljs-attr">label</span>: &#123;<br>        <span class="hljs-attr">font</span>: <span class="hljs-string">&#x27;24px sans-serif&#x27;</span>,<br>        <span class="hljs-attr">text</span>: entity.name,<br>        <span class="hljs-attr">scale</span>: <span class="hljs-number">0.5</span>,<br>        <span class="hljs-attr">horizontalOrigin</span>: Cesium.HorizontalOrigin.CENTER,<br>        <span class="hljs-attr">verticalOrigin</span>: Cesium.VerticalOrigin.BOTTOM,<br>        <span class="hljs-attr">fillColor</span>: Cesium.Color.CRIMSON,<br>        <span class="hljs-attr">showBackground</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">backgroundColor</span>: Cesium.Color.BEIGE,<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;);<br></code></pre></div></td></tr></table></figure>
 
-<p>可以看到，在执行 new Watcher 之前，会对计算属性做判断，判断其是否为函数，如果不是则取 getter。这是因为计算属性有两种定义方式。之后第二步是执行 deineCoumputed。这一步只是简单的调用 defineProterty 我就不贴代码了。</p>
-<p>关于计算属性的 getter 和 setter 定义如下： 重点关注 get 的懒加载部分，和 Watcher 的定义：</p>
-<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createComputedGetter</span>(<span class="hljs-params">key</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computedGetter</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> watcher = <span class="hljs-built_in">this</span>._computedWatchers &amp;&amp; <span class="hljs-built_in">this</span>._computedWatchers[key];<br>    <span class="hljs-keyword">if</span> (watcher) &#123;<br>      <span class="hljs-keyword">if</span> (watcher.dirty) &#123;<br>        watcher.evaluate();<br>      &#125;<br>      <span class="hljs-keyword">if</span> (Dep.target) &#123;<br>        watcher.depend();<br>      &#125;<br>      <span class="hljs-keyword">return</span> watcher.value;<br>    &#125;<br>  &#125;;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createGetterInvoker</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computedGetter</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> fn.call(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">this</span>);<br>  &#125;;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-
+<p>promise这个类最基本的功能就是传入处理器函数executor。根据MDN上的解释：</p>
+<blockquote>
+<p>这个“处理器函数”接受两个函数——resolve 和 reject ——作为其参数。当异步任务顺利完成且返回结果值时，会调用 resolve 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用reject 函数。</p>
+<p>promise中有三个状态：pending，fulfilled以及rejected。在上面这段程序中，使用this.$state来保存promise的状态。</p>
+<p>而resolve和reject的函数定义当中，传入的参数res赋给this.$value，从而实现参数res的传递。</p>
+<p>最后，调用executor，并把resolve和reject当做两个参数传递进去。如果这中间出现异常，我们会认为这是操作失败，从而调用reject函数。</p>
+</blockquote>
+<ul>
+<li>在我的项目中，当执行cesium的Cesium.GeoJsonDataSource.load这个加载json格式的数据的函数时，会返回一个promise对象，此时promise对象resolve里储存的是entities实体数据集：它包括这个json数据的所有面的坐标数据，promise一般用.then方法获取resolve存储的数据，并且在then方法里的js都是异步进行的，在promise外面是获取不到这个数据的。</li>
+</ul>
 
             </div>
             <hr>
@@ -292,7 +288,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vue/">-vue</a>
+                      <a class="hover-with-bg" href="/tags/js/">-js</a>
                     
                   </div>
                 
@@ -309,9 +305,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/26/promise/">
+                      <a href="/2021/12/26/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">promise</span>
+                        <span class="hidden-mobile">图片懒加载</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -319,8 +315,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/19/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
-                        <span class="hidden-mobile">函数柯里化</span>
+                      <a href="/2021/12/26/vue%E4%B8%ADcomputed%E7%9A%84%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">vue中computed的原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

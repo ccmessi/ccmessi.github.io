@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>浏览器的事件循环</title>
+    <link href="/2021/12/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"/>
+    <url>/2021/12/31/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
+    
+    <content type="html"><![CDATA[<h4 id="为什么js在浏览器中有事件循环的机制？"><a href="#为什么js在浏览器中有事件循环的机制？" class="headerlink" title="为什么js在浏览器中有事件循环的机制？"></a>为什么js在浏览器中有事件循环的机制？</h4><ul><li>JS是单线程的</li></ul><p>JS代码是一行行执行的，也就是同步执行，那么如果我们想要实现异步的操作，就可以通过event loop的概念来实现了非阻塞的机制。</p><ul><li>这里涉及到两种任务</li></ul><p>宏任务：整体代码，setTimeout，setInterval，I/o操作 （</p><p>微任务：new Promise().then，MutationObserver() *前端的回溯</p><ul><li>为什么要引入微任务的概念，只有微任务可以吗？</li></ul><p>宏任务：先进先出的原则执行。此时如果出现高优先级的任务，所以引入了微任务。</p><p>在任务队列中执行完了微任务，再执行下一轮宏任务。</p><ul><li>Node中的事件循环和浏览器中的事件循环有什么区别？</li></ul><p>宏任务的执行顺序：</p><ol><li><strong>timers定时器</strong>:执行已经安排的setTimeout 和 setInterval的回调函数。</li><li><strong>pending callback 待定回调</strong>:执行延迟到下一个循环选代的 I/O 回调</li><li><strong>idle, prepare</strong>:仅系统内部使用。</li><li><strong>poll</strong>:检索新的I/O事件，执行与 I/O 相关的回调。</li><li><strong>check</strong>:执行 setImmediate() 回调涵致。</li><li><strong>close callbacks</strong>: socket.on(‘close’,() =&gt; {}) </li></ol><p>微任务和宏任务在node的执行顺序:<br>Node v10及以前:<br>1.执行完一个阶段中的所有任务</p><p>2.执行nextTick队列里的内容</p><p>3.执行完微任务队列的内容</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>浏览器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>闭包以及闭包的应用场景</title>
+    <link href="/2021/12/31/%E9%97%AD%E5%8C%85%E4%BB%A5%E5%8F%8A%E9%97%AD%E5%8C%85%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
+    <url>/2021/12/31/%E9%97%AD%E5%8C%85%E4%BB%A5%E5%8F%8A%E9%97%AD%E5%8C%85%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</url>
+    
+    <content type="html"><![CDATA[<h4 id="闭包的定义"><a href="#闭包的定义" class="headerlink" title="闭包的定义"></a>闭包的定义</h4><p>闭包是指那些能够访问<strong>自由变量</strong>的函数。<br><strong>自由变量</strong>是指在函数中使用的，但既不是函致参数也不是函数局部变量的变量.</p><ol><li>从理论角度:所有的函数都有可能是闭包。函致中去访问全局变量就相当于是在访问自由变量</li><li>从实践角度:<ol><li>即使创建它的上下文已经被销毁了，它仍然存在。(内部函数从父函数中返回》</li><li>代码中引用了自由变量</li></ol></li></ol><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><h5 id="1、柯里化函数"><a href="#1、柯里化函数" class="headerlink" title="1、柯里化函数"></a>1、柯里化函数</h5><p>避免频繁调用具有相同参数的函数。同时能够轻松的复用。其实就是封装一个高阶函致。</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getArea</span>(<span class="hljs-params">width,height</span>) </span>&#123;<br><span class="hljs-keyword">return</span> width * height;<br>&#125;<br><span class="hljs-keyword">const</span> area1 =getArea(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);<br><span class="hljs-keyword">const</span> area2 =getArea(<span class="hljs-number">10</span>,<span class="hljs-number">30</span>);<br><span class="hljs-keyword">const</span> area3 =getArea(<span class="hljs-number">10</span>,<span class="hljs-number">40</span>);<br><span class="hljs-keyword">const</span> area4 =getArea(<span class="hljs-number">10</span>,<span class="hljs-number">50</span>);<br><br><span class="hljs-comment">//通过闭包降低浏览器的资源消耗</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getArea</span>(<span class="hljs-params">width</span>) </span>&#123;<br><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">height</span> =&gt;</span> &#123;<br><span class="hljs-keyword">return</span> width * height;<br>&#125;<br>&#125;<br><span class="hljs-keyword">const</span> getTenwidthArea =getArea(<span class="hljs-number">10</span>);<br><span class="hljs-keyword">const</span> areai =getTenwidthArea(<span class="hljs-number">20</span>);<br><span class="hljs-keyword">const</span> area2 =getTenwidthArea(<span class="hljs-number">30</span>);<br><span class="hljs-keyword">const</span> area3 =getTenwidthArea(<span class="hljs-number">40</span>);<br><span class="hljs-keyword">const</span> area4 = getTenwidthArea(5e);<br></code></pre></div></td></tr></table></figure><h5 id="2、使用闭包实现私有方法-变量"><a href="#2、使用闭包实现私有方法-变量" class="headerlink" title="2、使用闭包实现私有方法/变量"></a>2、使用闭包实现私有方法/变量</h5><p><strong>模块</strong>:<br>现代化的打包方式最终就是每个模块的代码都是相互独立的。</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">funOne</span>(<span class="hljs-params">i</span>) </span>&#123;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">funTwo</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;数字&#x27;+i)</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">return funTwo</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">    </span><br><span class="hljs-string">const fa= funone(110);</span><br><span class="hljs-string">const fb= funone(111);</span><br><span class="hljs-string">const fc = funOne(n2);</span><br></code></pre></div></td></tr></table></figure><h5 id="3、匿名自执行函数"><a href="#3、匿名自执行函数" class="headerlink" title="3、匿名自执行函数"></a>3、匿名自执行函数</h5><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> funOne = ( <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>) </span>&#123;<br><span class="hljs-keyword">var</span> num = e;<br><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i</span>) </span>&#123;<br>num++;<br><span class="hljs-keyword">return</span> num;<br>&#125;<br>&#125;)();<br><span class="hljs-built_in">console</span>.log(funone());<span class="hljs-comment">// 1</span><br><span class="hljs-built_in">console</span>.log(funone());<span class="hljs-comment">// 2</span><br><span class="hljs-built_in">console</span>.log(funone());<span class="hljs-comment">// 3</span><br></code></pre></div></td></tr></table></figure><h5 id="4、缓存一些结果"><a href="#4、缓存一些结果" class="headerlink" title="4、缓存一些结果"></a>4、缓存一些结果</h5><p>外部函数中创建一个数组。闭包函数可以获取或者修改这个数组的值，延长了<strong>变量的生命周期</strong>。</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">funParent</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-keyword">let</span> memo = [];<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">funTwo</span>(<span class="hljs-params">i</span>) </span>&#123;<br>memo.push(i);<br><span class="hljs-built_in">console</span>.log(memo.join(<span class="hljs-string">&#x27;,&#x27;</span>);<br>&#125;<br><span class="hljs-keyword">return</span> funTwo;<br>&#125;<br><span class="hljs-keyword">const</span> fn = funParent();<br>fn(<span class="hljs-number">1</span>);<br>fn(<span class="hljs-number">2</span>);<br></code></pre></div></td></tr></table></figure><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul><li>创建私有变量。</li><li>延长变量的生命周期。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-js</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>简单实现vue得双向绑定</title>
     <link href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/"/>
     <url>/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/</url>
@@ -104,6 +154,31 @@
   
   
   <entry>
+    <title>promise</title>
+    <link href="/2021/12/26/promise/"/>
+    <url>/2021/12/26/promise/</url>
+    
+    <content type="html"><![CDATA[<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//异步加载</span><br><span class="hljs-built_in">this</span>.promise = Cesium.GeoJsonDataSource.load(<br>  <span class="hljs-string">&#x27; http://nginx-100.gis-data.cn:7080/learning/3/cq-boundary.geojson&#x27;</span>, &#123;<br>    <span class="hljs-attr">stroke</span>: Cesium.Color.BLUE,<br>    <span class="hljs-attr">fill</span>: Cesium.Color.RED,<br>    <span class="hljs-attr">strokeWidth</span>: <span class="hljs-number">8</span>,<br>  &#125;);<br><span class="hljs-built_in">this</span>.promise.then(<span class="hljs-function">(<span class="hljs-params">dataSource</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">this</span>.viewer.dataSources.add(dataSource);<br>  <span class="hljs-keyword">let</span> entities = dataSource.entities.values;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> entity <span class="hljs-keyword">of</span> entities) &#123;<br>    <span class="hljs-keyword">let</span> polyPositions = entity.polygon.hierarchy.getValue(Cesium.JulianDate.now()).positions;<br>    <span class="hljs-comment">// 方式一：</span><br>    <span class="hljs-comment">// let polyCenter = Cesium.BoundingSphere.fromPoints(polyPositions).center;</span><br>    <span class="hljs-comment">// polyCenter = Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(polyCenter);</span><br>    <span class="hljs-comment">// 方式二：</span><br>    <span class="hljs-keyword">let</span> center = [];<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt;= polyPositions.length - <span class="hljs-number">1</span>; j++) &#123;<br>      a += polyPositions[j].x;<br>      b += polyPositions[j].y;<br>      c += polyPositions[j].z<br>    &#125;<br>    center = [a / polyPositions.length, b / polyPositions.length, c / polyPositions.length + <span class="hljs-number">2000</span>];<br>    <span class="hljs-keyword">let</span> labelpostion = Cesium.Cartesian3.fromArray(center);<br>    <span class="hljs-comment">//方式三：暂未实现，后面会继续研究</span><br>    <span class="hljs-comment">// let cartographics = Cesium.Ellipsoid.WGS84.cartesianArrayToCartographicArray(polyPositions);</span><br>    <span class="hljs-comment">// let points = [];</span><br>    <span class="hljs-comment">// let center = [];</span><br>    <span class="hljs-comment">// let a = 0;</span><br>    <span class="hljs-comment">// for (let i = 0; i &lt;= cartographics.length - 1; i++) &#123;</span><br>    <span class="hljs-comment">//   let lat = Cesium.Math.toDegrees(cartographics[i].latitude);</span><br>    <span class="hljs-comment">//   let lng = Cesium.Math.toDegrees(cartographics[i].longitude);</span><br>    <span class="hljs-comment">//   a = cartographics[i].height;</span><br>    <span class="hljs-comment">//   points[i] = [lng, lat];</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// let polygon = Turf.polygon([points]);</span><br>    <span class="hljs-comment">// let centroid = Turf.centroid(polygon);</span><br>    <span class="hljs-comment">// center = [centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]];</span><br>    <span class="hljs-comment">// let labelpostion = Cesium.Cartesian3.fromDegreesArray(center);</span><br>    <span class="hljs-built_in">this</span>.viewer.entities.add(&#123;<br>      <span class="hljs-attr">position</span>: labelpostion,<br>      <span class="hljs-attr">label</span>: &#123;<br>        <span class="hljs-attr">font</span>: <span class="hljs-string">&#x27;24px sans-serif&#x27;</span>,<br>        <span class="hljs-attr">text</span>: entity.name,<br>        <span class="hljs-attr">scale</span>: <span class="hljs-number">0.5</span>,<br>        <span class="hljs-attr">horizontalOrigin</span>: Cesium.HorizontalOrigin.CENTER,<br>        <span class="hljs-attr">verticalOrigin</span>: Cesium.VerticalOrigin.BOTTOM,<br>        <span class="hljs-attr">fillColor</span>: Cesium.Color.CRIMSON,<br>        <span class="hljs-attr">showBackground</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">backgroundColor</span>: Cesium.Color.BEIGE,<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;);<br></code></pre></div></td></tr></table></figure><p>promise这个类最基本的功能就是传入处理器函数executor。根据MDN上的解释：</p><blockquote><p>这个“处理器函数”接受两个函数——resolve 和 reject ——作为其参数。当异步任务顺利完成且返回结果值时，会调用 resolve 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用reject 函数。</p><p>promise中有三个状态：pending，fulfilled以及rejected。在上面这段程序中，使用this.$state来保存promise的状态。</p><p>而resolve和reject的函数定义当中，传入的参数res赋给this.$value，从而实现参数res的传递。</p><p>最后，调用executor，并把resolve和reject当做两个参数传递进去。如果这中间出现异常，我们会认为这是操作失败，从而调用reject函数。</p></blockquote><ul><li>在我的项目中，当执行cesium的Cesium.GeoJsonDataSource.load这个加载json格式的数据的函数时，会返回一个promise对象，此时promise对象resolve里储存的是entities实体数据集：它包括这个json数据的所有面的坐标数据，promise一般用.then方法获取resolve存储的数据，并且在then方法里的js都是异步进行的，在promise外面是获取不到这个数据的。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>-技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-js</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vue中computed的原理</title>
     <link href="/2021/12/26/vue%E4%B8%ADcomputed%E7%9A%84%E5%8E%9F%E7%90%86/"/>
     <url>/2021/12/26/vue%E4%B8%ADcomputed%E7%9A%84%E5%8E%9F%E7%90%86/</url>
@@ -195,7 +270,7 @@
     
     <tags>
       
-      <tag>js数组</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -220,7 +295,7 @@
     
     <tags>
       
-      <tag>-this</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -270,7 +345,7 @@
     
     <tags>
       
-      <tag>-爱情</tag>
+      <tag>-love</tag>
       
     </tags>
     
@@ -295,7 +370,7 @@
     
     <tags>
       
-      <tag>-服务端渲染</tag>
+      <tag>-浏览器</tag>
       
     </tags>
     
@@ -320,7 +395,7 @@
     
     <tags>
       
-      <tag>-ES6</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -345,7 +420,7 @@
     
     <tags>
       
-      <tag>-async</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -370,7 +445,7 @@
     
     <tags>
       
-      <tag>-throttle&amp;debounce</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -395,7 +470,7 @@
     
     <tags>
       
-      <tag>-axios</tag>
+      <tag>-js</tag>
       
     </tags>
     
@@ -413,7 +488,7 @@
     
     <categories>
       
-      <category>-随笔</category>
+      <category>-随便写写</category>
       
     </categories>
     
@@ -421,31 +496,6 @@
     <tags>
       
       <tag>-life</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>promise</title>
-    <link href="/2021/10/28/promise/"/>
-    <url>/2021/10/28/promise/</url>
-    
-    <content type="html"><![CDATA[<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//异步加载</span><br><span class="hljs-built_in">this</span>.promise = Cesium.GeoJsonDataSource.load(<br>  <span class="hljs-string">&#x27; http://nginx-100.gis-data.cn:7080/learning/3/cq-boundary.geojson&#x27;</span>, &#123;<br>    <span class="hljs-attr">stroke</span>: Cesium.Color.BLUE,<br>    <span class="hljs-attr">fill</span>: Cesium.Color.RED,<br>    <span class="hljs-attr">strokeWidth</span>: <span class="hljs-number">8</span>,<br>  &#125;);<br><span class="hljs-built_in">this</span>.promise.then(<span class="hljs-function">(<span class="hljs-params">dataSource</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">this</span>.viewer.dataSources.add(dataSource);<br>  <span class="hljs-keyword">let</span> entities = dataSource.entities.values;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> entity <span class="hljs-keyword">of</span> entities) &#123;<br>    <span class="hljs-keyword">let</span> polyPositions = entity.polygon.hierarchy.getValue(Cesium.JulianDate.now()).positions;<br>    <span class="hljs-comment">// 方式一：</span><br>    <span class="hljs-comment">// let polyCenter = Cesium.BoundingSphere.fromPoints(polyPositions).center;</span><br>    <span class="hljs-comment">// polyCenter = Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(polyCenter);</span><br>    <span class="hljs-comment">// 方式二：</span><br>    <span class="hljs-keyword">let</span> center = [];<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt;= polyPositions.length - <span class="hljs-number">1</span>; j++) &#123;<br>      a += polyPositions[j].x;<br>      b += polyPositions[j].y;<br>      c += polyPositions[j].z<br>    &#125;<br>    center = [a / polyPositions.length, b / polyPositions.length, c / polyPositions.length + <span class="hljs-number">2000</span>];<br>    <span class="hljs-keyword">let</span> labelpostion = Cesium.Cartesian3.fromArray(center);<br>    <span class="hljs-comment">//方式三：暂未实现，后面会继续研究</span><br>    <span class="hljs-comment">// let cartographics = Cesium.Ellipsoid.WGS84.cartesianArrayToCartographicArray(polyPositions);</span><br>    <span class="hljs-comment">// let points = [];</span><br>    <span class="hljs-comment">// let center = [];</span><br>    <span class="hljs-comment">// let a = 0;</span><br>    <span class="hljs-comment">// for (let i = 0; i &lt;= cartographics.length - 1; i++) &#123;</span><br>    <span class="hljs-comment">//   let lat = Cesium.Math.toDegrees(cartographics[i].latitude);</span><br>    <span class="hljs-comment">//   let lng = Cesium.Math.toDegrees(cartographics[i].longitude);</span><br>    <span class="hljs-comment">//   a = cartographics[i].height;</span><br>    <span class="hljs-comment">//   points[i] = [lng, lat];</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-comment">// let polygon = Turf.polygon([points]);</span><br>    <span class="hljs-comment">// let centroid = Turf.centroid(polygon);</span><br>    <span class="hljs-comment">// center = [centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]];</span><br>    <span class="hljs-comment">// let labelpostion = Cesium.Cartesian3.fromDegreesArray(center);</span><br>    <span class="hljs-built_in">this</span>.viewer.entities.add(&#123;<br>      <span class="hljs-attr">position</span>: labelpostion,<br>      <span class="hljs-attr">label</span>: &#123;<br>        <span class="hljs-attr">font</span>: <span class="hljs-string">&#x27;24px sans-serif&#x27;</span>,<br>        <span class="hljs-attr">text</span>: entity.name,<br>        <span class="hljs-attr">scale</span>: <span class="hljs-number">0.5</span>,<br>        <span class="hljs-attr">horizontalOrigin</span>: Cesium.HorizontalOrigin.CENTER,<br>        <span class="hljs-attr">verticalOrigin</span>: Cesium.VerticalOrigin.BOTTOM,<br>        <span class="hljs-attr">fillColor</span>: Cesium.Color.CRIMSON,<br>        <span class="hljs-attr">showBackground</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">backgroundColor</span>: Cesium.Color.BEIGE,<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;);<br></code></pre></div></td></tr></table></figure><p>promise这个类最基本的功能就是传入处理器函数executor。根据MDN上的解释：</p><blockquote><p>这个“处理器函数”接受两个函数——resolve 和 reject ——作为其参数。当异步任务顺利完成且返回结果值时，会调用 resolve 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用reject 函数。</p><p>promise中有三个状态：pending，fulfilled以及rejected。在上面这段程序中，使用this.$state来保存promise的状态。</p><p>而resolve和reject的函数定义当中，传入的参数res赋给this.$value，从而实现参数res的传递。</p><p>最后，调用executor，并把resolve和reject当做两个参数传递进去。如果这中间出现异常，我们会认为这是操作失败，从而调用reject函数。</p></blockquote><ul><li>在我的项目中，当执行cesium的Cesium.GeoJsonDataSource.load这个加载json格式的数据的函数时，会返回一个promise对象，此时promise对象resolve里储存的是entities实体数据集：它包括这个json数据的所有面的坐标数据，promise一般用.then方法获取resolve存储的数据，并且在then方法里的js都是异步进行的，在promise外面是获取不到这个数据的。</li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>-技术</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>-promise</tag>
       
     </tags>
     
