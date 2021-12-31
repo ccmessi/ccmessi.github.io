@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>v-if和v-show的区别</title>
+    <link href="/2021/12/31/v-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <url>/2021/12/31/v-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    
+    <content type="html"><![CDATA[<p><strong>v-show</strong> 总是会进行编译和渲染的工作 ：它只是简单的在元素上添加了 <code>display: none;</code> 的样式。v-show 具有较高的初始化性能成本上的消耗，但是使得转换状态变得很容易。 </p><p><strong>v-if</strong> 才是真正「有条件」的：它的加载是惰性的，因此，若它的初始条件是 false，它就不会做任何事情。这对于初始加载时间来说是有益的，当条件为 true 时，v-if 才会编译并渲染其内容。切换 v-if 下的块儿内容实际上时销毁了其内部的所有元素，比如说处于 v-if 下的组件实际上在切换状态时会被销毁并重新生成。</p><p><strong>区别</strong>：切换一个较大块儿时v-if 会比 v-show 消耗的性能多。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>-vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-v-if&amp;v-show</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>js判断数组的方法</title>
     <link href="/2021/12/31/js%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <url>/2021/12/31/js%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95/</url>
