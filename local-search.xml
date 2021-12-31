@@ -13,14 +13,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-浏览器</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>浏览器</tag>
+      <tag>-浏览器</tag>
       
     </tags>
     
@@ -38,14 +38,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>闭包</tag>
       
     </tags>
     
@@ -63,7 +63,7 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-vue</category>
       
     </categories>
     
@@ -88,14 +88,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-算法</tag>
       
     </tags>
     
@@ -113,14 +113,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-浏览器</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-浏览器</tag>
+      <tag>-cookie</tag>
       
     </tags>
     
@@ -138,14 +138,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-浏览器</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-浏览器</tag>
+      <tag>-图片懒加载</tag>
       
     </tags>
     
@@ -163,14 +163,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-Promise</tag>
       
     </tags>
     
@@ -188,14 +188,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-vue</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-vue</tag>
+      <tag>-computed</tag>
       
     </tags>
     
@@ -213,14 +213,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-闭包</tag>
       
     </tags>
     
@@ -238,14 +238,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>js</tag>
+      <tag>-垃圾回收</tag>
       
     </tags>
     
@@ -263,14 +263,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-js数组</tag>
       
     </tags>
     
@@ -288,14 +288,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-this</tag>
       
     </tags>
     
@@ -313,7 +313,7 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-uniapp</category>
       
     </categories>
     
@@ -363,14 +363,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-浏览器</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-浏览器</tag>
+      <tag>-浏览器渲染</tag>
       
     </tags>
     
@@ -388,14 +388,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-es6</tag>
       
     </tags>
     
@@ -413,14 +413,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-async</tag>
       
     </tags>
     
@@ -438,14 +438,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-节流与防抖</tag>
       
     </tags>
     
@@ -463,14 +463,14 @@
     
     <categories>
       
-      <category>-技术</category>
+      <category>-js</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>-js</tag>
+      <tag>-axios</tag>
       
     </tags>
     
