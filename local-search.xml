@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>router</title>
+    <link href="/2022/01/01/router/"/>
+    <url>/2022/01/01/router/</url>
+    
+    <content type="html"><![CDATA[<p>前端路由实现的本质是<strong>监听 url 变化</strong>，实现方式有两种：Hash 模式和 History 模式，无需刷新页面就能重新加载相应的页面。 Hash url 的格式为<code>www.a.com/#/</code>，当#后的哈希值发生变化时，通过 hashchange 事件监听，然后页面跳转。 History url 通过<code>history.pushState</code>和<code>history.replaceState</code>改变 url。 两种模式的区别：</p><ul><li>hash 只能改变#后的值，而 history 模式可以随意设置同源 url；</li><li>hash 只能添加字符串类的数据，而 history 可以通过 API 添加多种类型的数据；</li><li>hash 的历史记录只显示之前的<code>www.a.com</code>而不会显示 hash 值，而 history 的每条记录都会进入到历史记录；</li><li>hash 无需后端配置且兼容性好，而 history 需要配置<code>index.html</code>用于匹配不到资源的情况。</li></ul><p>前端路由有两种实现方式:</p><p><strong>history API</strong></p><ul><li>通过 <code>history.pushState()</code> 跳转路由</li><li>通过 <code>popstate event</code> 监听路由变化，但无法监听到 <code>history.pushState()</code> 时的路由变化</li></ul><p><strong>hash</strong></p><ul><li>通过 <code>location.hash</code> 跳转路由</li><li>通过 <code>hashchange event</code> 监听路由变化</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>-vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-路由</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>重排与重绘</title>
+    <link href="/2022/01/01/%E9%87%8D%E6%8E%92%E4%B8%8E%E9%87%8D%E7%BB%98/"/>
+    <url>/2022/01/01/%E9%87%8D%E6%8E%92%E4%B8%8E%E9%87%8D%E7%BB%98/</url>
+    
+    <content type="html"><![CDATA[<ul><li><strong>重排</strong>(Reflow)：元素的位置发生变动时发生重排，也叫回流。此时在关键渲染路径中的 Layout 阶段，计算每一个元素在设备视口内的确切位置和大小。当一个元素位置发生变化时，其父元素及其后边的元素位置都可能发生变化，代价极高。</li></ul><p><img src="/2022/01/01/%E9%87%8D%E6%8E%92%E4%B8%8E%E9%87%8D%E7%BB%98/1.png" alt="重排"></p><ul><li><strong>重绘</strong>(Repaint): 元素的样式发生变动，但是位置没有改变。此时在关键渲染路径中的 Paint 阶段，将渲染树中的每个节点转换成屏幕上的实际像素，这一步通常称为绘制或栅格化</li></ul><p><img src="/2022/01/01/%E9%87%8D%E6%8E%92%E4%B8%8E%E9%87%8D%E7%BB%98/2.png" alt="重绘"></p><p>注：<strong>重排必定会造成重绘。</strong></p><p>避免造成过多重排重绘的方法：</p><ol><li>使用 <code>DocumentFragment</code> 进行 DOM 操作，不过现在原生操作很少也基本上用不到。</li><li>CSS 样式尽量批量修改。</li><li>避免使用 table 布局。</li><li>为元素提前设置好高宽，不因多次渲染改变位置。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>-html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-重排重绘</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>v-if和v-show的区别</title>
     <link href="/2021/12/31/v-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <url>/2021/12/31/v-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
