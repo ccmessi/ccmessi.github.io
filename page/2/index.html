@@ -204,6 +204,69 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/12/26/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/" target="_blank">
+          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="图片懒加载">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/12/26/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/" target="_blank">
+          图片懒加载
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/12/26/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/" target="_blank">
+          
+          
+            
+          
+          定义在当前网页，滑动页面到能看到图片的时候再加载图片。
+故问题拆分成两个：
+
+如何判断图片出现在了当前视口 （即如何判断我们能够看到图片）
+如何控制图片的加载
+
+方案一: 位置计算 + 滚动事件 (Scroll) + DataSet API首先，clientTop，offsetTop，clientHeight 以及 scrollTop 各种关于图片的高度作比对，这些高度都代表了什么意思？
+这里是j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-26 10:34" pubdate>
+              2021-12-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/">-浏览器</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/">-图片懒加载</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/12/26/promise/" target="_blank">
           <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="promise">
         </a>
@@ -744,65 +807,6 @@ concat() 方法用于连接两个或多个数组。
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">-浏览器渲染</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/29/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/" target="_blank">
-          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="暂时性死区">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/29/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/" target="_blank">
-          暂时性死区
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/29/%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA/" target="_blank">
-          
-          
-            
-          
-          暂时性死区只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
-123456var tmp = 123;if (true) &#123;  tmp = &#x27;abc&#x27;; // ReferenceError  let tmp;&#125;
-
-上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-29 18:07" pubdate>
-              2021-10-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/js/">-js</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/es6/">-es6</a>
             
           </div>
         
