@@ -16,20 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：  Observe 对象 Dep 对象 Watch 对象 Obs">
+  <meta name="description" content="vue-loader 会把 sfc 中的内容拆分为 template，script，style 三个“虚拟模块”，然后分别匹配 webpack 配置中对应的 rules，比如 script 模块会匹配所有跟处理 JavaScript 或 TypeScript 相关的 loader。 template 中的内容会通过 vue compiler 转换为 render 函数后合并到script“虚拟模块">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue中computed的原理">
-<meta property="og:url" content="http://ccmessi.github.io/2021/12/26/vue%E4%B8%ADcomputed%E7%9A%84%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="vue-loader的实现原理">
+<meta property="og:url" content="http://ccmessi.github.io/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="はなび的博客">
-<meta property="og:description" content="要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：  Observe 对象 Dep 对象 Watch 对象 Obs">
+<meta property="og:description" content="vue-loader 会把 sfc 中的内容拆分为 template，script，style 三个“虚拟模块”，然后分别匹配 webpack 配置中对应的 rules，比如 script 模块会匹配所有跟处理 JavaScript 或 TypeScript 相关的 loader。 template 中的内容会通过 vue compiler 转换为 render 函数后合并到script“虚拟模块">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-26T02:31:43.000Z">
-<meta property="article:modified_time" content="2021-12-31T12:11:57.020Z">
+<meta property="article:published_time" content="2022-01-02T14:05:14.000Z">
+<meta property="article:modified_time" content="2022-01-02T14:09:03.533Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="-computed">
+<meta property="article:tag" content="-loader">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>vue中computed的原理 - はなび的博客</title>
+  <title>vue-loader的实现原理 - はなび的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vue中computed的原理">
+            <span class="h2" id="subtitle" title="vue-loader的实现原理">
               
             </span>
 
@@ -201,8 +201,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-26 10:31" pubdate>
-        2021年12月26日 上午
+      <time datetime="2022-01-02 22:05" pubdate>
+        2022年1月2日 晚上
       </time>
     </span>
   
@@ -212,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      242 字
     </span>
   
 
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      1 分钟
     </span>
   
 
@@ -250,31 +250,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue中computed的原理</h1>
+            <h1 style="display: none">vue-loader的实现原理</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月31日 晚上
+                  本文最后更新于：2022年1月2日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <p>要讲清楚，computed 原理，首先得讲 vue 响应式原理，因为 computed 的实现是基于 Watcher 对象的。 那么 vue 的响应式原理是什么呢，众所周知，vue 是基于 Object.defineProperty 实现监听的。在 vue 初始化数据 data 和 computed 数据过程中。会涉及到以下几个对象：</p>
-<ol>
-<li>Observe 对象</li>
-<li>Dep 对象</li>
-<li>Watch 对象 Observe 对象是在 data 执行响应式时候调用，因为 computed 属性基于响应式属性，所以其不需要创建 Observe 对象。 Dep 对象主要功能是做依赖收集，有个属性维护多个 Watch 对象，当更新时候循环调用每个 Watch 执行更新。 Watch 对象主要是用于更新，而且是收集的重点对象。</li>
-</ol>
-<p>这里谈到 computed 计算属性，首先要知道，其有两种定义方式，一种是方法，另一种是 get，set 属性。而且，其内部监听的对象必须是已经定义响应式的属性，比如 data 的属性 vuex 的属性。</p>
-<p>vue 在创建 computed 属性时候，会循环所有计算属性，每一个计算属性会创建一个 watch，并且在通过 defineProperty 定义监听，在 get 中，计算属性工作是做依赖收集，在 set 中，计算属性重要工作是重新执行计算方法，这里需要多补充一句，因为 computed 是懒执行，也就是说第一次初始化之后，变不会执行计算，下一次变更执行重新计算是在 set 中。</p>
-<p>另一个补充点是依赖收集的时机，computed 收集时机和 data 一样，是在组件挂载前，但是其收集对象是自己属性对应的 watch，而 data 本身所有数据对应一个 watch。</p>
-<p>以下附计算属性源码验证说法：</p>
-<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initComputed</span>(<span class="hljs-params">vm: Component, computed: <span class="hljs-built_in">Object</span></span>) </span>&#123;<br>  <span class="hljs-comment">// $flow-disable-line</span><br>  <span class="hljs-keyword">const</span> watchers = (vm._computedWatchers = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>));<br>  <span class="hljs-comment">// computed properties are just getters during SSR</span><br>  <span class="hljs-keyword">const</span> isSSR = isServerRendering();<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> computed) &#123;<br>    <span class="hljs-keyword">const</span> userDef = computed[key];<br>    <span class="hljs-keyword">const</span> getter = <span class="hljs-keyword">typeof</span> userDef === <span class="hljs-string">&quot;function&quot;</span> ? userDef : userDef.get;<br>    <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">&quot;production&quot;</span> &amp;&amp; getter == <span class="hljs-literal">null</span>) &#123;<br>      warn(<span class="hljs-string">`Getter is missing for computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot;.`</span>, vm);<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (!isSSR) &#123;<br>      <span class="hljs-comment">// create internal watcher for the computed property.</span><br>      watchers[key] = <span class="hljs-keyword">new</span> Watcher(<br>        vm,<br>        getter || noop,<br>        noop,<br>        computedWatcherOptions<br>      );<br>    &#125;<br><br>    <span class="hljs-comment">// component-defined computed properties are already defined on the</span><br>    <span class="hljs-comment">// component prototype. We only need to define computed properties defined</span><br>    <span class="hljs-comment">// at instantiation here.</span><br>    <span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> vm)) &#123;<br>      defineComputed(vm, key, userDef);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">&quot;production&quot;</span>) &#123;<br>      <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> vm.$data) &#123;<br>        warn(<span class="hljs-string">`The computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already defined in data.`</span>, vm);<br>      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (vm.$options.props &amp;&amp; key <span class="hljs-keyword">in</span> vm.$options.props) &#123;<br>        warn(<br>          <span class="hljs-string">`The computed property &quot;<span class="hljs-subst">$&#123;key&#125;</span>&quot; is already defined as a prop.`</span>,<br>          vm<br>        );<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-
-<p>可以看到，在执行 new Watcher 之前，会对计算属性做判断，判断其是否为函数，如果不是则取 getter。这是因为计算属性有两种定义方式。之后第二步是执行 deineCoumputed。这一步只是简单的调用 defineProterty 我就不贴代码了。</p>
-<p>关于计算属性的 getter 和 setter 定义如下： 重点关注 get 的懒加载部分，和 Watcher 的定义：</p>
-<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createComputedGetter</span>(<span class="hljs-params">key</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computedGetter</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> watcher = <span class="hljs-built_in">this</span>._computedWatchers &amp;&amp; <span class="hljs-built_in">this</span>._computedWatchers[key];<br>    <span class="hljs-keyword">if</span> (watcher) &#123;<br>      <span class="hljs-keyword">if</span> (watcher.dirty) &#123;<br>        watcher.evaluate();<br>      &#125;<br>      <span class="hljs-keyword">if</span> (Dep.target) &#123;<br>        watcher.depend();<br>      &#125;<br>      <span class="hljs-keyword">return</span> watcher.value;<br>    &#125;<br>  &#125;;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createGetterInvoker</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computedGetter</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> fn.call(<span class="hljs-built_in">this</span>, <span class="hljs-built_in">this</span>);<br>  &#125;;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-
+              <p><strong>vue-loader</strong> 会把 sfc 中的内容拆分为<code> template</code>，<code>script</code>，<code>style</code> 三个“虚拟模块”，然后分别匹配 <code>webpack</code> 配置中对应的<code> rules</code>，比如 <code>script</code> 模块会匹配所有跟处理 <code>JavaScript </code>或<code> TypeScript</code> 相关的<code> loader</code>。</p>
+<p><code>template</code> 中的内容会通过 <code>vue compiler</code> 转换为<code> render</code> 函数后合并到<code>script</code>“虚拟模块”中。</p>
+<p><code>scoped style </code>会经过 <code>vue-loader/style-post-loader</code> 的处理，成为只匹配特定元素的私有样式。</p>
 
             </div>
             <hr>
@@ -292,7 +279,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/computed/">-computed</a>
+                      <a class="hover-with-bg" href="/tags/loader/">-loader</a>
                     
                   </div>
                 
@@ -309,18 +296,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/26/promise/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">promise</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/19/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
-                        <span class="hidden-mobile">函数柯里化</span>
+                      <a href="/2022/01/01/webpack/">
+                        <span class="hidden-mobile">webpack</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
