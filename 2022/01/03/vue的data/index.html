@@ -16,18 +16,38 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类 - -vue">
-<meta property="og:url" content="http://ccmessi.github.io/categories/vue/index.html">
+  <meta name="description" content="先来看vue脚手架上的data源码吧： 123456789101112&#x2F;&#x2F;为什么data函数里面要return一个对象&lt;script&gt;    export default &amp;#123;        data() &amp;#123;            return &amp;#123;  &#x2F;&#x2F; 返回一个唯一的对象，不要和其他组件共用一个对象进行返回                menu: ME">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue的data">
+<meta property="og:url" content="http://ccmessi.github.io/2022/01/03/vue%E7%9A%84data/index.html">
 <meta property="og:site_name" content="はなび的博客">
+<meta property="og:description" content="先来看vue脚手架上的data源码吧： 123456789101112&#x2F;&#x2F;为什么data函数里面要return一个对象&lt;script&gt;    export default &amp;#123;        data() &amp;#123;            return &amp;#123;  &#x2F;&#x2F; 返回一个唯一的对象，不要和其他组件共用一个对象进行返回                menu: ME">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-03T02:34:05.000Z">
+<meta property="article:modified_time" content="2022-01-03T02:37:30.250Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="-data">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>分类 - -vue - はなび的博客</title>
+  <title>vue的data - はなび的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -54,7 +74,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -171,9 +191,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类 - -vue">
+            <span class="h2" id="subtitle" title="vue的data">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-03 10:34" pubdate>
+        2022年1月3日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      287 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      1 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -186,73 +240,98 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vue的data</h1>
+            
+              <p class="note note-info">
                 
+                  本文最后更新于：2022年1月3日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>先来看vue脚手架上的data源码吧：</p>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//为什么data函数里面要return一个对象</span><br>&lt;script&gt;<br>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>        <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> &#123;  <span class="hljs-comment">// 返回一个唯一的对象，不要和其他组件共用一个对象进行返回</span><br>                <span class="hljs-attr">menu</span>: MENU.data,<br>                <span class="hljs-attr">poi</span>: POILIST.data<br>            &#125;<br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br><br></code></pre></div></td></tr></table></figure>
 
-<div class="list-group">
-  <p class="h4">共计 6 篇文章</p>
-  <hr>
-  
-  
-    
-      
-      <p class="h5">2022</p>
-    
-    <a href="/2022/01/03/vue%E7%9A%84data/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">vue的data</span>
-      <time style="float: right;">01-03</time>
-    </a>
-  
-    
-    <a href="/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">vue-loader的实现原理</span>
-      <time style="float: right;">01-02</time>
-    </a>
-  
-    
-    <a href="/2022/01/01/router/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">router</span>
-      <time style="float: right;">01-01</time>
-    </a>
-  
-    
-      
-      <p class="h5">2021</p>
-    
-    <a href="/2021/12/31/v-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">v-if和v-show的区别</span>
-      <time style="float: right;">12-31</time>
-    </a>
-  
-    
-    <a href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">简单实现vue得双向绑定</span>
-      <time style="float: right;">12-26</time>
-    </a>
-  
-    
-    <a href="/2021/12/26/vue%E7%9A%84computed%E5%8E%9F%E7%90%86%20/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">vue中computed的原理</span>
-      <time style="float: right;">12-26</time>
-    </a>
-  
-</div>
+<p>这是因为因为一个组件是可以共享的，但他们的<strong>data</strong>是私有的，所以每个组件都要return一个新的data对象，返回一个<strong>唯一的对象</strong>，不要和其他组件共用一个对象。</p>
 
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/vue/">-vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/data/">-data</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">vue-loader的实现原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -370,6 +449,19 @@
 
 
 
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
@@ -395,6 +487,13 @@
 
 
 
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

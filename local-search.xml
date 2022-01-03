@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>vue的data</title>
+    <link href="/2022/01/03/vue%E7%9A%84data/"/>
+    <url>/2022/01/03/vue%E7%9A%84data/</url>
+    
+    <content type="html"><![CDATA[<p>先来看vue脚手架上的data源码吧：</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//为什么data函数里面要return一个对象</span><br>&lt;script&gt;<br>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>        <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> &#123;  <span class="hljs-comment">// 返回一个唯一的对象，不要和其他组件共用一个对象进行返回</span><br>                <span class="hljs-attr">menu</span>: MENU.data,<br>                <span class="hljs-attr">poi</span>: POILIST.data<br>            &#125;<br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br><br></code></pre></div></td></tr></table></figure><p>这是因为因为一个组件是可以共享的，但他们的<strong>data</strong>是私有的，所以每个组件都要return一个新的data对象，返回一个<strong>唯一的对象</strong>，不要和其他组件共用一个对象。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>-vue</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-data</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vue-loader的实现原理</title>
     <link href="/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
     <url>/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</url>
