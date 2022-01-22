@@ -204,6 +204,69 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/01/22/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84promise/" target="_blank">
+          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="如何实现一个简单的promise">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/01/22/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84promise/" target="_blank">
+          如何实现一个简单的promise
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/01/22/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84promise/" target="_blank">
+          
+          
+            
+          
+          一个简单的 Promise 的粗糙实现，关键点在于
+
+当 pending 时， thenable 函数由一个队列维护
+当状态变为 resolved(fulfilled) 时，队列中所有 thenable 函数执行
+当 resolved 时， thenable 函数直接执行
+
+rejected 状态同理，来看代码：
+123456789101112131415161718192021222324252
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-01-22 15:25" pubdate>
+              2022-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/js/">-js</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/promise/">-promise</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/01/03/vue%E7%9A%84data/" target="_blank">
           <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="vue的data">
         </a>
@@ -724,63 +787,6 @@ JS代码是一行行执行的，也就是同步执行，那么如果我们想要
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E9%97%AD%E5%8C%85/">闭包</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" target="_blank">
-          <img src="/img/article.jpeg" srcset="/img/loading.gif" lazyload alt="简单实现vue得双向绑定">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" target="_blank">
-          简单实现vue得双向绑定
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/12/26/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0vue%E5%BE%97%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/" target="_blank">
-          
-          
-            
-          
-          直接上代码
-1234567891011121314var Book = &#123;&#125;;var name = &#x27;&#x27;;Object.defineProperty(Book,&#x27;name&#x27;,&#123;    set: function (value) &#123;        name = value;        console.log(name
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-26 17:07" pubdate>
-              2021-12-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/vue/">-vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/vue/">-vue</a>
             
           </div>
         

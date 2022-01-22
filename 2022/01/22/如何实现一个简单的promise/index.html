@@ -16,20 +16,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <meta name="description" content="先来看vue脚手架上的data源码吧： 123456789101112&#x2F;&#x2F;为什么data函数里面要return一个对象&lt;script&gt;    export default &amp;#123;        data() &amp;#123;            return &amp;#123;  &#x2F;&#x2F; 返回一个唯一的对象，不要和其他组件共用一个对象进行返回                menu: ME">
+  <meta name="description" content="一个简单的 Promise 的粗糙实现，关键点在于  当 pending 时， thenable 函数由一个队列维护 当状态变为 resolved(fulfilled) 时，队列中所有 thenable 函数执行 当 resolved 时， thenable 函数直接执行  rejected 状态同理，来看代码： 123456789101112131415161718192021222324252">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue的data">
-<meta property="og:url" content="http://ccmessi.github.io/2022/01/03/vue%E7%9A%84data/index.html">
+<meta property="og:title" content="如何实现一个简单的promise">
+<meta property="og:url" content="http://ccmessi.github.io/2022/01/22/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84promise/index.html">
 <meta property="og:site_name" content="はなび的博客">
-<meta property="og:description" content="先来看vue脚手架上的data源码吧： 123456789101112&#x2F;&#x2F;为什么data函数里面要return一个对象&lt;script&gt;    export default &amp;#123;        data() &amp;#123;            return &amp;#123;  &#x2F;&#x2F; 返回一个唯一的对象，不要和其他组件共用一个对象进行返回                menu: ME">
+<meta property="og:description" content="一个简单的 Promise 的粗糙实现，关键点在于  当 pending 时， thenable 函数由一个队列维护 当状态变为 resolved(fulfilled) 时，队列中所有 thenable 函数执行 当 resolved 时， thenable 函数直接执行  rejected 状态同理，来看代码： 123456789101112131415161718192021222324252">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-03T02:34:05.000Z">
-<meta property="article:modified_time" content="2022-01-03T02:37:30.250Z">
+<meta property="article:published_time" content="2022-01-22T07:25:11.000Z">
+<meta property="article:modified_time" content="2022-01-22T07:26:39.411Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="-data">
+<meta property="article:tag" content="-promise">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>vue的data - はなび的博客</title>
+  <title>如何实现一个简单的promise - はなび的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vue的data">
+            <span class="h2" id="subtitle" title="如何实现一个简单的promise">
               
             </span>
 
@@ -201,8 +201,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-03 10:34" pubdate>
-        2022年1月3日 上午
+      <time datetime="2022-01-22 15:25" pubdate>
+        2022年1月22日 下午
       </time>
     </span>
   
@@ -212,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      287 字
+      1.9k 字
     </span>
   
 
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      6 分钟
     </span>
   
 
@@ -250,19 +250,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vue的data</h1>
+            <h1 style="display: none">如何实现一个简单的promise</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月3日 上午
+                  本文最后更新于：2022年1月22日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <p>先来看vue脚手架上的data源码吧：</p>
-<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">//为什么data函数里面要return一个对象</span><br>&lt;script&gt;<br>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>        <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> &#123;  <span class="hljs-comment">// 返回一个唯一的对象，不要和其他组件共用一个对象进行返回</span><br>                <span class="hljs-attr">menu</span>: MENU.data,<br>                <span class="hljs-attr">poi</span>: POILIST.data<br>            &#125;<br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br><br></code></pre></div></td></tr></table></figure>
+              <p>一个简单的 <code>Promise</code> 的粗糙实现，关键点在于</p>
+<ol>
+<li>当 <code>pending</code> 时， <code>thenable</code> 函数由一个队列维护</li>
+<li>当状态变为 <code>resolved(fulfilled)</code> 时，队列中所有 <code>thenable</code> 函数执行</li>
+<li>当 <code>resolved</code> 时， <code>thenable</code> 函数直接执行</li>
+</ol>
+<p><code>rejected</code> 状态同理，来看代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Prom</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">resolve</span>(<span class="hljs-params">value</span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (value &amp;&amp; value.then) &#123;<br>      <span class="hljs-keyword">return</span> value;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Prom(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> resolve(value));<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">fn</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.value = <span class="hljs-literal">undefined</span>;<br>    <span class="hljs-built_in">this</span>.reason = <span class="hljs-literal">undefined</span>;<br>    <span class="hljs-built_in">this</span>.status = <span class="hljs-string">&quot;PENDING&quot;</span>;<br><br>    <span class="hljs-comment">// 维护一个 resolve/pending 的函数队列</span><br>    <span class="hljs-built_in">this</span>.resolveFns = [];<br>    <span class="hljs-built_in">this</span>.rejectFns = [];<br><br>    <span class="hljs-keyword">const</span> resolve = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;<br>      <span class="hljs-comment">// 注意此处的 setTimeout</span><br>      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">this</span>.status = <span class="hljs-string">&quot;RESOLVED&quot;</span>;<br>        <span class="hljs-built_in">this</span>.value = value;<br>        <span class="hljs-built_in">this</span>.resolveFns.forEach(<span class="hljs-function">(<span class="hljs-params">&#123; fn, resolve: res, reject: rej &#125;</span>) =&gt;</span><br>          res(fn(value))<br>        );<br>      &#125;);<br>    &#125;;<br><br>    <span class="hljs-keyword">const</span> reject = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">this</span>.status = <span class="hljs-string">&quot;REJECTED&quot;</span>;<br>        <span class="hljs-built_in">this</span>.reason = e;<br>        <span class="hljs-built_in">this</span>.rejectFns.forEach(<span class="hljs-function">(<span class="hljs-params">&#123; fn, resolve: res, reject: rej &#125;</span>) =&gt;</span><br>          rej(fn(e))<br>        );<br>      &#125;);<br>    &#125;;<br><br>    fn(resolve, reject);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">then</span>(<span class="hljs-params">fn</span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-string">&quot;RESOLVED&quot;</span>) &#123;<br>      <span class="hljs-keyword">const</span> result = fn(<span class="hljs-built_in">this</span>.value);<br>      <span class="hljs-comment">// 需要返回一个 Promise</span><br>      <span class="hljs-comment">// 如果状态为 resolved，直接执行</span><br>      <span class="hljs-keyword">return</span> Prom.resolve(result);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-string">&quot;PENDING&quot;</span>) &#123;<br>      <span class="hljs-comment">// 也是返回一个 Promise</span><br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Prom(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>        <span class="hljs-comment">// 推进队列中，resolved 后统一执行</span><br>        <span class="hljs-built_in">this</span>.resolveFns.push(&#123; fn, resolve, reject &#125;);<br>      &#125;);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">catch</span>(fn) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-string">&quot;REJECTED&quot;</span>) &#123;<br>      <span class="hljs-keyword">const</span> result = fn(<span class="hljs-built_in">this</span>.value);<br>      <span class="hljs-keyword">return</span> Prom.resolve(result);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-string">&quot;PENDING&quot;</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Prom(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>        <span class="hljs-built_in">this</span>.rejectFns.push(&#123; fn, resolve, reject &#125;);<br>      &#125;);<br>    &#125;<br>  &#125;<br>&#125;<br><br>Prom.resolve(<span class="hljs-number">10</span>)<br>  .then(<span class="hljs-function">(<span class="hljs-params">o</span>) =&gt;</span> o * <span class="hljs-number">10</span>)<br>  .then(<span class="hljs-function">(<span class="hljs-params">o</span>) =&gt;</span> o + <span class="hljs-number">10</span>)<br>  .then(<span class="hljs-function">(<span class="hljs-params">o</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(o);<br>  &#125;);<br><br><span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Prom(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> reject(<span class="hljs-string">&quot;Error&quot;</span>)).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Error&quot;</span>, e);<br>&#125;);<br></code></pre></div></td></tr></table></figure>
 
-<p>这是因为因为一个组件是可以共享的，但他们的<strong>data</strong>是私有的，所以每个组件都要return一个新的data对象，返回一个<strong>唯一的对象</strong>，不要和其他组件共用一个对象。</p>
 
             </div>
             <hr>
@@ -272,7 +277,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/vue/">-vue</a>
+                      <a class="hover-with-bg" href="/categories/js/">-js</a>
                     
                   </div>
                 
@@ -280,7 +285,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/data/">-data</a>
+                      <a class="hover-with-bg" href="/tags/promise/">-promise</a>
                     
                   </div>
                 
@@ -297,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/22/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84promise/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何实现一个简单的promise</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/02/vue-loader%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
-                        <span class="hidden-mobile">vue-loader的实现原理</span>
+                      <a href="/2022/01/03/vue%E7%9A%84data/">
+                        <span class="hidden-mobile">vue的data</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
